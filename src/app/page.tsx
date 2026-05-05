@@ -1,6 +1,10 @@
 import Link from "next/link";
+import Image from "next/image";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+
+const LOGO_URL =
+  "https://cdn.discordapp.com/attachments/1420855366685692094/1501312679837564999/Captura_de_ecra_2026-05-05_205927-Photoroom.png?ex=69fb9de3&is=69fa4c63&hm=05f58669eb1e429ddf818b12f5c5a2031ede04ea6fa309c4fa441b1036dba29e&";
 
 const servicos = [
   {
@@ -70,15 +74,14 @@ export default function Home() {
         <div className="absolute right-0 top-0 bottom-0 w-1 bg-gradient-to-b from-transparent via-gold-500 to-transparent opacity-60" />
 
         <div className="relative text-center px-4 max-w-4xl mx-auto">
-          <p className="text-gold-400 uppercase tracking-[0.3em] text-xs sm:text-sm mb-6">
-            Setúbal · Desde 2018
-          </p>
-          <h1 className="text-5xl sm:text-7xl lg:text-8xl font-bold tracking-tight mb-2">
-            EAST COAST
-          </h1>
-          <h2 className="text-4xl sm:text-6xl lg:text-7xl font-bold text-gold-500 tracking-tight mb-8">
-            BARBERIA
-          </h2>
+          <Image
+            src={LOGO_URL}
+            alt="East Coast Barberia"
+            width={480}
+            height={240}
+            className="mx-auto mb-8 w-auto h-44 sm:h-56 lg:h-64 object-contain"
+            priority
+          />
           <div className="w-16 h-0.5 bg-gold-500 mx-auto mb-8" />
           <p className="text-gray-300 text-lg sm:text-xl max-w-xl mx-auto mb-12 leading-relaxed">
             Cortes de precisão, barbas impecáveis e a experiência que o homem moderno merece.

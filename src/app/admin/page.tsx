@@ -1,6 +1,10 @@
 "use client";
 
 import { useState, useEffect, useCallback } from "react";
+import Image from "next/image";
+
+const LOGO_URL =
+  "https://cdn.discordapp.com/attachments/1420855366685692094/1501312679837564999/Captura_de_ecra_2026-05-05_205927-Photoroom.png?ex=69fb9de3&is=69fa4c63&hm=05f58669eb1e429ddf818b12f5c5a2031ede04ea6fa309c4fa441b1036dba29e&";
 
 interface Marcacao {
   id: string;
@@ -125,11 +129,15 @@ export default function AdminPage() {
       <main className="min-h-screen bg-dark-900 flex items-center justify-center px-4">
         <div className="w-full max-w-sm">
           <div className="text-center mb-10">
-            <div className="w-12 h-12 border-2 border-gold-500 flex items-center justify-center mx-auto mb-4">
-              <span className="text-gold-500 font-bold">EC</span>
-            </div>
+            <Image
+              src={LOGO_URL}
+              alt="East Coast Barberia"
+              width={200}
+              height={80}
+              className="mx-auto mb-6 h-20 w-auto object-contain"
+              priority
+            />
             <h1 className="text-2xl font-bold">Área Administrativa</h1>
-            <p className="text-gray-400 text-sm mt-2">East Coast Barberia</p>
           </div>
 
           <form onSubmit={handleLogin} className="bg-dark-700 border border-dark-500 p-8 space-y-5">
@@ -178,16 +186,14 @@ export default function AdminPage() {
       {/* Header */}
       <header className="bg-dark-800 border-b border-dark-500 px-4 py-4">
         <div className="max-w-6xl mx-auto flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <div className="w-8 h-8 border-2 border-gold-500 flex items-center justify-center">
-              <span className="text-gold-500 font-bold text-xs">EC</span>
-            </div>
-            <div>
-              <h1 className="text-sm font-semibold tracking-wider uppercase">
-                East Coast <span className="text-gold-400">Barberia</span>
-              </h1>
-              <p className="text-gray-500 text-xs">Painel de Administração</p>
-            </div>
+          <div className="flex items-center">
+            <Image
+              src={LOGO_URL}
+              alt="East Coast Barberia"
+              width={140}
+              height={44}
+              className="h-11 w-auto object-contain"
+            />
           </div>
           <button
             onClick={handleLogout}

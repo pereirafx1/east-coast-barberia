@@ -1,7 +1,11 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { useState } from "react";
+
+const LOGO_URL =
+  "https://cdn.discordapp.com/attachments/1420855366685692094/1501312679837564999/Captura_de_ecra_2026-05-05_205927-Photoroom.png?ex=69fb9de3&is=69fa4c63&hm=05f58669eb1e429ddf818b12f5c5a2031ede04ea6fa309c4fa441b1036dba29e&";
 
 export default function Navbar() {
   const [open, setOpen] = useState(false);
@@ -17,13 +21,15 @@ export default function Navbar() {
     <nav className="fixed top-0 left-0 right-0 z-50 bg-dark-900/95 backdrop-blur-sm border-b border-gold-500/20">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
-          <Link href="/" className="flex items-center gap-3">
-            <div className="w-8 h-8 border-2 border-gold-500 flex items-center justify-center">
-              <span className="text-gold-500 font-bold text-xs">EC</span>
-            </div>
-            <span className="text-white font-semibold tracking-widest uppercase text-sm">
-              East Coast <span className="text-gold-500">Barberia</span>
-            </span>
+          <Link href="/" className="flex items-center gap-2">
+            <Image
+              src={LOGO_URL}
+              alt="East Coast Barberia"
+              width={120}
+              height={40}
+              className="h-10 w-auto object-contain"
+              priority
+            />
           </Link>
 
           <div className="hidden md:flex items-center gap-8">

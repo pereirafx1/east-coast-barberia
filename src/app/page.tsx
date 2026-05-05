@@ -236,22 +236,22 @@ export default function Home() {
             <h2 className="text-4xl sm:text-5xl font-bold">Contacto</h2>
             <div className="w-16 h-0.5 bg-gold-500 mx-auto mt-6" />
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
             {[
               {
                 icon: "📍",
                 titulo: "Morada",
-                linhas: ["Rua de Exemplo, 42", "2900-000 Setúbal"],
+                linhas: ["R. São Filipe 1B", "2900-457 Setúbal"],
               },
               {
                 icon: "📞",
                 titulo: "Telefone",
-                linhas: ["+351 265 000 000", "Chamada para rede fixa nacional"],
+                linhas: ["910 163 502", "Chamada para rede móvel nacional"],
               },
               {
                 icon: "🕐",
                 titulo: "Horário",
-                linhas: ["Ter – Sex: 09h–19h", "Sáb: 09h–17h · Dom/Seg: Fechado"],
+                linhas: ["Seg – Sáb: 09h–20h", "Domingo: Fechado"],
               },
             ].map((card) => (
               <div key={card.titulo} className="bg-dark-700 border border-dark-500 p-8 text-center">
@@ -266,6 +266,20 @@ export default function Home() {
                 ))}
               </div>
             ))}
+          </div>
+
+          {/* Mapa */}
+          <div className="border border-dark-500 overflow-hidden">
+            <iframe
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3!2d-8.890!3d38.524!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd194f4b7b2b1111%3A0x0!2sR.+S%C3%A3o+Filipe+1B%2C+2900-457+Set%C3%BAbal!5e0!3m2!1spt!2spt!4v1000000000000!5m2!1spt!2spt&q=R.+S%C3%A3o+Filipe+1B,+2900-457+Set%C3%BAbal,+Portugal"
+              width="100%"
+              height="350"
+              style={{ border: 0, filter: "grayscale(1) invert(0.9) hue-rotate(180deg)" }}
+              allowFullScreen
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+              title="East Coast Barberia - Localização"
+            />
           </div>
         </div>
       </section>

@@ -1,17 +1,22 @@
 import Link from "next/link";
+import Image from "next/image";
+
+const LOGO_URL =
+  "https://cdn.discordapp.com/attachments/1420855366685692094/1501312679837564999/Captura_de_ecra_2026-05-05_205927-Photoroom.png?ex=69fb9de3&is=69fa4c63&hm=05f58669eb1e429ddf818b12f5c5a2031ede04ea6fa309c4fa441b1036dba29e&";
 
 export default function Footer() {
   return (
     <footer className="bg-dark-800 border-t border-gold-500/20 py-12 px-4">
       <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8">
         <div>
-          <div className="flex items-center gap-3 mb-4">
-            <div className="w-8 h-8 border-2 border-gold-500 flex items-center justify-center">
-              <span className="text-gold-500 font-bold text-xs">EC</span>
-            </div>
-            <span className="text-white font-semibold tracking-widest uppercase text-sm">
-              East Coast <span className="text-gold-500">Barberia</span>
-            </span>
+          <div className="mb-4">
+            <Image
+              src={LOGO_URL}
+              alt="East Coast Barberia"
+              width={140}
+              height={48}
+              className="h-12 w-auto object-contain"
+            />
           </div>
           <p className="text-gray-400 text-sm leading-relaxed">
             Barbearia premium em Setúbal. O lugar onde o estilo encontra a tradição.
@@ -24,15 +29,11 @@ export default function Footer() {
           </h4>
           <ul className="text-gray-400 text-sm space-y-2">
             <li className="flex justify-between gap-4">
-              <span>Terça — Sexta</span>
-              <span>09:00 – 19:00</span>
+              <span>Segunda — Sábado</span>
+              <span>09:00 – 20:00</span>
             </li>
             <li className="flex justify-between gap-4">
-              <span>Sábado</span>
-              <span>09:00 – 17:00</span>
-            </li>
-            <li className="flex justify-between gap-4">
-              <span>Dom / Segunda</span>
+              <span>Domingo</span>
               <span className="text-red-400">Fechado</span>
             </li>
           </ul>
@@ -43,15 +44,10 @@ export default function Footer() {
             Contacto
           </h4>
           <ul className="text-gray-400 text-sm space-y-2">
-            <li>Rua de Exemplo, 42 · Setúbal</li>
+            <li>R. São Filipe 1B, 2900-457 Setúbal</li>
             <li>
-              <a href="tel:+351265000000" className="hover:text-gold-400 transition-colors">
-                +351 265 000 000
-              </a>
-            </li>
-            <li>
-              <a href="mailto:geral@eastcoastbarberia.pt" className="hover:text-gold-400 transition-colors">
-                geral@eastcoastbarberia.pt
+              <a href="tel:+351910163502" className="hover:text-gold-400 transition-colors">
+                910 163 502
               </a>
             </li>
           </ul>

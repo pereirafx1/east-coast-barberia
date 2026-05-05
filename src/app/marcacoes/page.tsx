@@ -16,8 +16,9 @@ const SERVICOS = [
 
 const HORAS = [
   "09:00", "09:30", "10:00", "10:30", "11:00", "11:30",
-  "12:00", "12:30", "14:00", "14:30", "15:00", "15:30",
-  "16:00", "16:30", "17:00", "17:30", "18:00", "18:30",
+  "12:00", "12:30", "13:00", "13:30", "14:00", "14:30",
+  "15:00", "15:30", "16:00", "16:30", "17:00", "17:30",
+  "18:00", "18:30", "19:00", "19:30",
 ];
 
 type Status = "idle" | "loading" | "success" | "error";
@@ -36,6 +37,11 @@ export default function MarcacoesPage() {
 
   const today = new Date().toISOString().split("T")[0];
 
+  function isSunday(dateStr: string) {
+    if (!dateStr) return false;
+    return new Date(`${dateStr}T12:00:00`).getDay() === 0;
+  }
+
   function handleChange(
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>
   ) {
@@ -46,6 +52,12 @@ export default function MarcacoesPage() {
     e.preventDefault();
     setStatus("loading");
     setErrorMsg("");
+
+    if (isSunday(form.data)) {
+      setStatus("error");
+      setErrorMsg("Aos domingos estamos fechados. Por favor escolha outro dia.");
+      return;
+    }
 
     try {
       const res = await fetch("/api/marcacoes", {
@@ -180,8 +192,13 @@ export default function MarcacoesPage() {
                   min={today}
                   value={form.data}
                   onChange={handleChange}
-                  className="w-full bg-dark-800 border border-dark-500 focus:border-gold-500 text-white px-4 py-3 text-sm outline-none transition-colors"
+                  className={`w-full bg-dark-800 border focus:border-gold-500 text-white px-4 py-3 text-sm outline-none transition-colors ${
+                    isSunday(form.data) ? "border-red-500" : "border-dark-500"
+                  }`}
                 />
+                {isSunday(form.data) && (
+                  <p className="text-red-400 text-xs mt-1">Fechado aos domingos.</p>
+                )}
               </div>
 
               <div>

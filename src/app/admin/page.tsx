@@ -25,13 +25,8 @@ function formatDate(iso: string) {
 }
 
 function formatDateTime(iso: string) {
-  const d = new Date(iso);
-  return d.toLocaleString("pt-PT", {
-    day: "2-digit",
-    month: "2-digit",
-    year: "numeric",
-    hour: "2-digit",
-    minute: "2-digit",
+  return new Date(iso).toLocaleString("pt-PT", {
+    day: "2-digit", month: "2-digit", year: "numeric", hour: "2-digit", minute: "2-digit",
   });
 }
 
@@ -40,7 +35,6 @@ export default function AdminPage() {
   const [password, setPassword] = useState("");
   const [loginError, setLoginError] = useState("");
   const [loginLoading, setLoginLoading] = useState(false);
-
   const [marcacoes, setMarcacoes] = useState<Marcacao[]>([]);
   const [loadingData, setLoadingData] = useState(false);
   const [dataError, setDataError] = useState("");
@@ -54,8 +48,7 @@ export default function AdminPage() {
       const res = await fetch("/api/marcacoes");
       if (res.status === 401) { setView("login"); return; }
       if (!res.ok) throw new Error("Erro ao carregar marcações.");
-      const data = await res.json();
-      setMarcacoes(data);
+      setMarcacoes(await res.json());
     } catch (err) {
       setDataError(err instanceof Error ? err.message : "Erro desconhecido.");
     } finally {
@@ -111,10 +104,9 @@ export default function AdminPage() {
   }
 
   const filtered = filterData ? marcacoes.filter((m) => m.data === filterData) : marcacoes;
-  const sorted = [...filtered].sort((a, b) => {
-    if (a.data !== b.data) return a.data.localeCompare(b.data);
-    return a.hora.localeCompare(b.hora);
-  });
+  const sorted = [...filtered].sort((a, b) =>
+    a.data !== b.data ? a.data.localeCompare(b.data) : a.hora.localeCompare(b.hora)
+  );
 
   /* ── LOGIN ── */
   if (view === "login") {
@@ -122,48 +114,30 @@ export default function AdminPage() {
       <main className="min-h-screen bg-ink flex items-center justify-center px-4">
         <div className="w-full max-w-sm">
           <div className="text-center mb-10">
-            <Image
-              src={LOGO_URL}
-              alt="East Coast Barberia"
-              width={200}
-              height={80}
-              className="mx-auto mb-6 h-20 w-auto object-contain"
-              priority
-            />
-            <p className="font-accent italic text-gold-400 text-xs tracking-widest mb-1">
-              Acesso restrito
-            </p>
-            <h1 className="font-heading text-2xl font-bold uppercase tracking-stamp text-cream-200">
-              Área Administrativa
-            </h1>
+            <Image src={LOGO_URL} alt="East Coast Barberia" width={200} height={80} className="mx-auto mb-6 h-20 w-auto object-contain" priority />
+            <p className="font-accent text-gold-400 text-xs tracking-wide mb-1">— Acesso restrito —</p>
+            <h1 className="font-heading text-3xl tracking-stamp text-cream-200">Área Administrativa</h1>
           </div>
 
           <form onSubmit={handleLogin} className="bg-dark-700 border border-dark-500 p-8 space-y-5 border-vintage">
             <div>
-              <label className="block font-heading text-[10px] uppercase tracking-stamp text-cream-400 mb-2">
+              <label className="block font-ui font-semibold text-[10px] uppercase tracking-stamp text-cream-400 mb-2">
                 Palavra-passe
               </label>
               <input
-                type="password"
-                required
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                placeholder="••••••••"
-                autoFocus
+                type="password" required value={password} onChange={(e) => setPassword(e.target.value)}
+                placeholder="••••••••" autoFocus
                 className="w-full bg-dark-800 border border-dark-400 focus:border-gold-400 text-cream-200 px-4 py-3 text-sm outline-none transition-colors font-sans"
               />
             </div>
-
             {loginError && (
-              <div className="bg-red-900/20 border border-red-500/30 text-red-300 px-4 py-3 text-sm font-sans">
+              <div className="bg-razor-500/10 border border-razor-500/30 text-red-300 px-4 py-3 text-sm font-sans">
                 {loginError}
               </div>
             )}
-
             <button
-              type="submit"
-              disabled={loginLoading}
-              className="w-full bg-gold-400 hover:bg-gold-300 disabled:opacity-50 text-ink font-heading font-bold py-3 tracking-stamp uppercase text-sm transition-colors"
+              type="submit" disabled={loginLoading}
+              className="w-full bg-razor-500 hover:bg-razor-400 disabled:opacity-50 text-cream-100 font-ui font-bold py-3 tracking-stamp uppercase text-sm transition-colors"
             >
               {loginLoading ? "A entrar..." : "Entrar"}
             </button>
@@ -182,19 +156,11 @@ export default function AdminPage() {
   /* ── DASHBOARD ── */
   return (
     <main className="min-h-screen bg-ink">
-      <header className="bg-dark-800 border-b border-gold-600/20 px-4 py-3">
+      <div className="h-0.5 bg-razor-500" />
+      <header className="bg-dark-800 border-b border-dark-600 px-4 py-3">
         <div className="max-w-6xl mx-auto flex items-center justify-between">
-          <Image
-            src={LOGO_URL}
-            alt="East Coast Barberia"
-            width={120}
-            height={40}
-            className="h-10 w-auto object-contain opacity-90"
-          />
-          <button
-            onClick={handleLogout}
-            className="font-heading text-cream-400 hover:text-red-400 text-[10px] tracking-stamp uppercase transition-colors"
-          >
+          <Image src={LOGO_URL} alt="East Coast Barberia" width={120} height={40} className="h-10 w-auto object-contain opacity-90" />
+          <button onClick={handleLogout} className="font-ui font-semibold text-cream-400 hover:text-razor-400 text-[10px] tracking-stamp uppercase transition-colors">
             Sair
           </button>
         </div>
@@ -204,23 +170,19 @@ export default function AdminPage() {
         {/* Stats */}
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-8">
           {[
-            { label: "Total Marcações", valor: marcacoes.length },
-            { label: "Hoje", valor: marcacoes.filter((m) => m.data === new Date().toISOString().split("T")[0]).length },
+            { label: "Total Marcações", valor: marcacoes.length, red: true },
+            { label: "Hoje", valor: marcacoes.filter((m) => m.data === new Date().toISOString().split("T")[0]).length, red: false },
             {
-              label: "Esta Semana",
+              label: "Esta Semana", red: false,
               valor: marcacoes.filter((m) => {
-                const d = new Date(m.data);
-                const now = new Date();
-                const weekStart = new Date(now);
-                weekStart.setDate(now.getDate() - now.getDay() + 1);
-                weekStart.setHours(0, 0, 0, 0);
-                const weekEnd = new Date(weekStart);
-                weekEnd.setDate(weekStart.getDate() + 6);
-                return d >= weekStart && d <= weekEnd;
+                const d = new Date(m.data), now = new Date();
+                const ws = new Date(now); ws.setDate(now.getDate() - now.getDay() + 1); ws.setHours(0,0,0,0);
+                const we = new Date(ws); we.setDate(ws.getDate() + 6);
+                return d >= ws && d <= we;
               }).length,
             },
             {
-              label: "Este Mês",
+              label: "Este Mês", red: false,
               valor: marcacoes.filter((m) => {
                 const now = new Date();
                 return m.data.startsWith(`${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, "0")}`);
@@ -228,52 +190,37 @@ export default function AdminPage() {
             },
           ].map((s) => (
             <div key={s.label} className="bg-dark-700 border border-dark-500 p-5 text-center border-vintage">
-              <p className="font-heading text-4xl font-bold text-gold-400">{s.valor}</p>
-              <p className="font-heading text-cream-400 text-[10px] mt-2 uppercase tracking-stamp">{s.label}</p>
+              <p className={`font-heading text-4xl ${s.red ? "text-razor-500" : "text-gold-400"}`}>{s.valor}</p>
+              <p className="font-ui text-cream-400 text-[10px] mt-2 uppercase tracking-stamp">{s.label}</p>
             </div>
           ))}
         </div>
 
         {/* Controls */}
         <div className="flex flex-col sm:flex-row gap-4 items-start sm:items-center justify-between mb-6">
-          <h2 className="font-heading text-cream-200 text-2xl font-bold uppercase tracking-stamp">
-            Marcações
-          </h2>
+          <h2 className="font-heading text-cream-200 text-3xl tracking-stamp">Marcações</h2>
           <div className="flex items-center gap-3">
-            <label className="font-heading text-[10px] text-cream-400 uppercase tracking-stamp">
-              Filtrar:
-            </label>
+            <label className="font-ui font-semibold text-[10px] text-cream-400 uppercase tracking-stamp">Filtrar:</label>
             <input
-              type="date"
-              value={filterData}
-              onChange={(e) => setFilterData(e.target.value)}
+              type="date" value={filterData} onChange={(e) => setFilterData(e.target.value)}
               className="bg-dark-700 border border-dark-400 focus:border-gold-400 text-cream-200 px-3 py-2 text-sm outline-none transition-colors font-sans"
             />
             {filterData && (
-              <button
-                onClick={() => setFilterData("")}
-                className="font-heading text-cream-400 hover:text-cream-200 text-[10px] uppercase tracking-stamp"
-              >
+              <button onClick={() => setFilterData("")} className="font-ui font-semibold text-cream-400 hover:text-cream-200 text-[10px] uppercase tracking-stamp">
                 Limpar
               </button>
             )}
             <button
               onClick={fetchMarcacoes}
-              className="bg-dark-600 hover:bg-dark-500 text-cream-300 px-4 py-2 font-heading text-[10px] uppercase tracking-stamp transition-colors border border-dark-400"
+              className="bg-dark-600 hover:bg-dark-500 text-cream-300 px-4 py-2 font-ui font-semibold text-[10px] uppercase tracking-stamp transition-colors border border-dark-400"
             >
               Atualizar
             </button>
           </div>
         </div>
 
-        {loadingData && (
-          <div className="text-center py-16 font-sans text-cream-400">A carregar marcações...</div>
-        )}
-        {dataError && (
-          <div className="bg-red-900/20 border border-red-500/30 text-red-300 px-4 py-3 text-sm font-sans mb-4">
-            {dataError}
-          </div>
-        )}
+        {loadingData && <div className="text-center py-16 font-sans text-cream-400">A carregar marcações...</div>}
+        {dataError && <div className="bg-razor-500/10 border border-razor-500/30 text-red-300 px-4 py-3 text-sm font-sans mb-4">{dataError}</div>}
         {!loadingData && !dataError && sorted.length === 0 && (
           <div className="text-center py-16 font-sans text-cream-400">
             {filterData ? "Nenhuma marcação para esta data." : "Ainda não há marcações."}
@@ -282,35 +229,30 @@ export default function AdminPage() {
 
         {!loadingData && sorted.length > 0 && (
           <>
-            {/* Desktop table */}
+            {/* Desktop */}
             <div className="hidden md:block overflow-x-auto border border-dark-500">
               <table className="w-full text-sm">
                 <thead>
                   <tr className="bg-dark-700 border-b border-dark-500">
-                    {["Cliente", "Telefone", "Serviço", "Data", "Hora", "Marcado em", "Obs.", ""].map((h) => (
-                      <th key={h} className="px-4 py-3 text-left font-heading text-[10px] uppercase tracking-stamp text-cream-400">
-                        {h}
-                      </th>
+                    {["Cliente","Telefone","Serviço","Data","Hora","Marcado em","Obs.",""].map((h) => (
+                      <th key={h} className="px-4 py-3 text-left font-ui font-semibold text-[10px] uppercase tracking-stamp text-cream-400">{h}</th>
                     ))}
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-dark-600">
                   {sorted.map((m) => (
                     <tr key={m.id} className="hover:bg-dark-700/40 transition-colors">
-                      <td className="px-4 py-3 font-heading text-cream-200 font-semibold text-sm tracking-wide">{m.nome}</td>
+                      <td className="px-4 py-3 font-heading text-cream-200 text-base tracking-wide">{m.nome}</td>
                       <td className="px-4 py-3 font-sans text-cream-300 text-sm">{m.telefone}</td>
-                      <td className="px-4 py-3 font-heading text-gold-400 text-xs tracking-wide">{m.servico}</td>
+                      <td className="px-4 py-3 font-ui font-semibold text-gold-400 text-xs tracking-wide">{m.servico}</td>
                       <td className="px-4 py-3 font-sans text-cream-200 text-sm">{formatDate(m.data)}</td>
                       <td className="px-4 py-3 font-sans text-cream-200 text-sm font-medium">{m.hora}</td>
                       <td className="px-4 py-3 font-sans text-cream-400 text-xs">{formatDateTime(m.criadoEm)}</td>
-                      <td className="px-4 py-3 font-sans text-cream-400 text-xs max-w-[140px] truncate italic">
-                        {m.mensagem || "—"}
-                      </td>
+                      <td className="px-4 py-3 font-sans text-cream-400 text-xs max-w-[140px] truncate italic">{m.mensagem || "—"}</td>
                       <td className="px-4 py-3 text-right">
                         <button
-                          onClick={() => handleDelete(m.id)}
-                          disabled={deletingId === m.id}
-                          className="font-heading text-red-400 hover:text-red-300 disabled:opacity-40 text-[10px] uppercase tracking-stamp transition-colors"
+                          onClick={() => handleDelete(m.id)} disabled={deletingId === m.id}
+                          className="font-ui font-semibold text-razor-400 hover:text-razor-500 disabled:opacity-40 text-[10px] uppercase tracking-stamp transition-colors"
                         >
                           {deletingId === m.id ? "..." : "Eliminar"}
                         </button>
@@ -321,30 +263,25 @@ export default function AdminPage() {
               </table>
             </div>
 
-            {/* Mobile cards */}
+            {/* Mobile */}
             <div className="md:hidden space-y-4">
               {sorted.map((m) => (
                 <div key={m.id} className="bg-dark-700 border border-dark-500 p-5 space-y-3 border-vintage">
                   <div className="flex items-start justify-between">
                     <div>
-                      <p className="font-heading text-cream-200 font-semibold uppercase tracking-wide">{m.nome}</p>
+                      <p className="font-heading text-cream-200 tracking-stamp text-lg">{m.nome}</p>
                       <p className="font-sans text-cream-400 text-sm">{m.telefone}</p>
                     </div>
                     <button
-                      onClick={() => handleDelete(m.id)}
-                      disabled={deletingId === m.id}
-                      className="font-heading text-red-400 hover:text-red-300 text-[10px] uppercase tracking-stamp"
+                      onClick={() => handleDelete(m.id)} disabled={deletingId === m.id}
+                      className="font-ui font-semibold text-razor-400 hover:text-razor-500 text-[10px] uppercase tracking-stamp"
                     >
                       {deletingId === m.id ? "..." : "Eliminar"}
                     </button>
                   </div>
-                  <p className="font-heading text-gold-400 text-xs tracking-wide">{m.servico}</p>
-                  <p className="font-sans text-cream-200 text-sm">
-                    {formatDate(m.data)} às {m.hora}
-                  </p>
-                  {m.mensagem && (
-                    <p className="font-sans text-cream-400 text-xs italic">{m.mensagem}</p>
-                  )}
+                  <p className="font-ui font-semibold text-gold-400 text-xs tracking-wide">{m.servico}</p>
+                  <p className="font-sans text-cream-200 text-sm">{formatDate(m.data)} às {m.hora}</p>
+                  {m.mensagem && <p className="font-sans text-cream-400 text-xs italic">{m.mensagem}</p>}
                   <p className="font-sans text-dark-400 text-xs">Marcado em {formatDateTime(m.criadoEm)}</p>
                 </div>
               ))}

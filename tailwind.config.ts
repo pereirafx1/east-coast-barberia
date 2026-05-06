@@ -9,14 +9,19 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        // Vintage gold — extraído do badge do logo
+        // Dourado âmbar — cabo da navalha do logo
         gold: {
-          100: "#F5E9C4",
           200: "#E8D08A",
           300: "#D9B84E",
-          400: "#C9961A", // dourado vintage principal
-          500: "#B8860B", // dourado escuro para fundos
-          600: "#9A7010", // bordas e detalhes
+          400: "#C9961A",
+          500: "#B8860B",
+          600: "#9A7010",
+        },
+        // Vermelho flanela — camisa do barbeiro no logo
+        razor: {
+          400: "#C0392B",
+          500: "#9B2335", // vermelho principal
+          600: "#7B1C28",
         },
         // Preto profundo do logo
         ink: "#0D0D0D",
@@ -28,22 +33,27 @@ const config: Config = {
           500: "#303030",
           400: "#3D3D3D",
         },
-        // Creme quente para texto (em vez de branco frio)
+        // Creme quente para texto
         cream: {
           100: "#FAF7F0",
-          200: "#EDE5D8", // texto principal
-          300: "#C8BBA8", // texto secundário
-          400: "#8A7D6B", // texto muito suave
+          200: "#EDE5D8",
+          300: "#C8BBA8",
+          400: "#8A7D6B",
         },
       },
       fontFamily: {
-        heading: ["var(--font-oswald)", "sans-serif"],
-        accent: ["var(--font-playfair)", "serif"],
+        // Bebas Neue — impacto máximo, fiel ao lettering do logo
+        heading: ["var(--font-bebas)", "sans-serif"],
+        // Barlow Condensed — UI, botões, navegação
+        ui: ["var(--font-barlow)", "sans-serif"],
+        // Special Elite — labels, accent text, typewriter vintage
+        accent: ["var(--font-special)", "serif"],
+        // Inter — corpo do texto
         sans: ["var(--font-inter)", "sans-serif"],
       },
       letterSpacing: {
-        stamp: "0.25em",
-        widest: "0.3em",
+        stamp: "0.15em",
+        wide: "0.08em",
       },
     },
   },

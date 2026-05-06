@@ -1,20 +1,19 @@
 interface SectionHeaderProps {
   label: string;
   title: string;
-  light?: boolean;
 }
 
-export default function SectionHeader({ label, title, light = false }: SectionHeaderProps) {
+export default function SectionHeader({ label, title }: SectionHeaderProps) {
   return (
     <div className="text-center mb-16">
-      <p className={`font-accent italic text-sm mb-4 tracking-widest ${light ? "text-gold-300" : "text-gold-400"}`}>
-        {label}
+      <p className="font-accent text-gold-400 text-sm mb-5 tracking-wide">
+        — {label} —
       </p>
-      <h2 className={`font-heading text-5xl sm:text-6xl font-bold uppercase tracking-stamp ${light ? "text-cream-100" : "text-cream-200"}`}>
+      <h2 className="font-heading text-6xl sm:text-7xl text-cream-200 tracking-stamp">
         {title}
       </h2>
-      <div className="ornament mt-6 max-w-xs mx-auto">
-        <span className="text-gold-400 text-xs">◆</span>
+      <div className="razor-divider mt-6 max-w-xs mx-auto">
+        <span className="font-ui text-razor-500 text-xs tracking-widest uppercase">✦</span>
       </div>
     </div>
   );

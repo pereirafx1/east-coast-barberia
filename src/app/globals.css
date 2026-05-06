@@ -11,31 +11,36 @@ body {
   color: #EDE5D8;
 }
 
-/* Grain texture subtil — evoca papel vintage */
+/* Grain texture — evoca papel vintage e impressão analógica */
 body::after {
   content: "";
   position: fixed;
   inset: 0;
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='1'/%3E%3C/svg%3E");
-  opacity: 0.025;
+  opacity: 0.03;
   pointer-events: none;
   z-index: 9998;
 }
 
 @layer utilities {
-  /* Divisor ornamental vintage */
-  .ornament {
-    @apply flex items-center gap-4 justify-center;
+  /* Divisor com navalha — referência direta ao logo */
+  .razor-divider {
+    @apply flex items-center gap-3;
   }
-  .ornament::before,
-  .ornament::after {
+  .razor-divider::before,
+  .razor-divider::after {
     content: "";
-    @apply flex-1 h-px bg-gold-600/50;
+    @apply flex-1 h-px bg-gold-600/40;
   }
 
-  /* Borda dupla estilo vintage */
+  /* Borda inset vintage */
   .border-vintage {
-    outline: 1px solid rgba(201, 150, 26, 0.15);
-    outline-offset: -6px;
+    outline: 1px solid rgba(201, 150, 26, 0.12);
+    outline-offset: -5px;
+  }
+
+  /* Acento vermelho flanela */
+  .razor-accent {
+    @apply text-razor-500;
   }
 }

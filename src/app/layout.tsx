@@ -1,19 +1,27 @@
 import type { Metadata } from "next";
-import { Oswald, Playfair_Display, Inter } from "next/font/google";
+import { Bebas_Neue, Barlow_Condensed, Special_Elite, Inter } from "next/font/google";
 import "./globals.css";
 
-const oswald = Oswald({
+const bebasNeue = Bebas_Neue({
   subsets: ["latin"],
-  variable: "--font-oswald",
+  variable: "--font-bebas",
   display: "swap",
-  weight: ["300", "400", "500", "600", "700"],
+  weight: "400",
 });
 
-const playfair = Playfair_Display({
+const barlowCondensed = Barlow_Condensed({
   subsets: ["latin"],
-  variable: "--font-playfair",
+  variable: "--font-barlow",
   display: "swap",
+  weight: ["300", "400", "500", "600", "700"],
   style: ["normal", "italic"],
+});
+
+const specialElite = Special_Elite({
+  subsets: ["latin"],
+  variable: "--font-special",
+  display: "swap",
+  weight: "400",
 });
 
 const inter = Inter({
@@ -35,7 +43,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="pt" className={`${oswald.variable} ${playfair.variable} ${inter.variable}`}>
+    <html
+      lang="pt"
+      className={`${bebasNeue.variable} ${barlowCondensed.variable} ${specialElite.variable} ${inter.variable}`}
+    >
       <body className="bg-ink text-cream-200 antialiased font-sans">{children}</body>
     </html>
   );

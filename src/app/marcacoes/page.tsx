@@ -6,12 +6,12 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 
 const SERVICOS = [
-  "Corte de Cabelo — 15€",
-  "Barba — 12€",
-  "Corte + Barba — 22€",
-  "Lavagem + Corte — 18€",
-  "Hidratação de Barba — 8€",
-  "Pacote Premium — 35€",
+  "Corte Simples — €17,00",
+  "Corte + Styling — €18,00",
+  "Corte Degradê — €19,00",
+  "Risco — €1,50",
+  "Desenho — €10,00",
+  "Barba — €12,50",
 ];
 
 const HORAS = [

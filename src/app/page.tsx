@@ -8,12 +8,12 @@ const LOGO_URL =
   "https://cdn.discordapp.com/attachments/1420855366685692094/1501312679837564999/Captura_de_ecra_2026-05-05_205927-Photoroom.png?ex=69fb9de3&is=69fa4c63&hm=05f58669eb1e429ddf818b12f5c5a2031ede04ea6fa309c4fa441b1036dba29e&";
 
 const servicos = [
-  { num: "01", nome: "Corte de Cabelo", preco: "15€", duracao: "30 min", descricao: "Corte clássico ou moderno com acabamento perfeito." },
-  { num: "02", nome: "Barba", preco: "12€", duracao: "25 min", descricao: "Aparo e definição com navalha para um look impecável." },
-  { num: "03", nome: "Corte + Barba", preco: "22€", duracao: "50 min", descricao: "O combo completo para o homem que cuida da sua imagem." },
-  { num: "04", nome: "Lavagem + Corte", preco: "18€", duracao: "45 min", descricao: "Lavagem com produtos premium antes do corte." },
-  { num: "05", nome: "Hidratação de Barba", preco: "8€", duracao: "15 min", descricao: "Tratamento nutritivo para barba saudável e macia." },
-  { num: "06", nome: "Pacote Premium", preco: "35€", duracao: "75 min", descricao: "Lavagem, corte, barba e hidratação — a experiência completa." },
+  { nome: "Corte Simples",   preco: "€ 17,00" },
+  { nome: "Corte + Styling", preco: "€ 18,00" },
+  { nome: "Corte Degradê",   preco: "€ 19,00" },
+  { nome: "Risco",           preco: "€ 1,50"  },
+  { nome: "Desenho",         preco: "€ 10,00" },
+  { nome: "Barba",           preco: "€ 12,50" },
 ];
 
 const galeria = [
@@ -86,29 +86,33 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Serviços */}
+      {/* Serviços — tabela de preços estilo lista */}
       <section id="servicos" className="py-28 px-4 bg-dark-800">
-        <div className="max-w-6xl mx-auto">
-          <SectionHeader label="O que fazemos" title="Serviços" />
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+        <div className="max-w-2xl mx-auto">
+          <div className="mb-12">
+            <h2 className="font-heading text-6xl sm:text-7xl text-cream-200 tracking-stamp mb-2">
+              Tabela de Preços
+            </h2>
+            <div className="w-10 h-0.5 bg-razor-500" />
+          </div>
+
+          <div className="divide-y divide-dark-500">
             {servicos.map((s) => (
               <div
                 key={s.nome}
-                className="bg-dark-700 border border-dark-500 hover:border-gold-500/40 p-7 group transition-all duration-300 hover:-translate-y-1 border-vintage"
+                className="flex items-center justify-between py-5 group"
               >
-                <div className="flex items-start justify-between mb-5">
-                  <span className="font-heading text-razor-500/30 text-4xl group-hover:text-razor-500/50 transition-colors">
-                    {s.num}
-                  </span>
-                  <span className="font-heading text-gold-400 text-2xl">{s.preco}</span>
-                </div>
-                <h3 className="font-heading text-cream-200 text-2xl tracking-stamp mb-2">{s.nome}</h3>
-                <p className="font-sans text-cream-400 text-sm leading-relaxed mb-5">{s.descricao}</p>
-                <p className="font-accent text-gold-600 text-xs tracking-wide">{s.duracao}</p>
+                <span className="font-ui font-semibold text-cream-200 text-base sm:text-lg tracking-wide group-hover:text-gold-400 transition-colors duration-200">
+                  {s.nome}
+                </span>
+                <span className="font-heading text-cream-200 text-xl sm:text-2xl tracking-stamp ml-6 shrink-0">
+                  {s.preco}
+                </span>
               </div>
             ))}
           </div>
-          <div className="text-center mt-14">
+
+          <div className="mt-12">
             <Link
               href="/marcacoes"
               className="bg-razor-500 hover:bg-razor-400 text-cream-100 font-ui font-bold px-10 py-4 tracking-stamp uppercase text-sm transition-all duration-200 inline-block"
@@ -243,17 +247,17 @@ export default function Home() {
             ))}
           </div>
 
-          {/* Mapa */}
+          {/* Mapa — R. São Filipe 1B, Setúbal | coords: 38.5241,-8.8887 | satélite 45° */}
           <div className="border border-dark-500 overflow-hidden">
             <iframe
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3!2d-8.890!3d38.524!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd194f4b7b2b1111%3A0x0!2sR.+S%C3%A3o+Filipe+1B%2C+2900-457+Set%C3%BAbal!5e0!3m2!1spt!2spt!4v1000000000000!5m2!1spt!2spt&q=R.+S%C3%A3o+Filipe+1B,+2900-457+Set%C3%BAbal,+Portugal"
+              src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d400!2d-8.88874!3d38.52412!2m3!1f45!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e1!3m2!1spt!2spt!4v1746800000000!5m2!1spt!2spt"
               width="100%"
-              height="350"
-              style={{ border: 0, filter: "grayscale(1) invert(0.85) hue-rotate(180deg) sepia(0.15)" }}
+              height="400"
+              style={{ border: 0, filter: "grayscale(1) invert(0.9) hue-rotate(180deg)" }}
               allowFullScreen
               loading="lazy"
               referrerPolicy="no-referrer-when-downgrade"
-              title="East Coast Barberia - Localização"
+              title="East Coast Barberia — R. São Filipe 1B, Setúbal"
             />
           </div>
         </div>

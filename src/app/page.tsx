@@ -2,62 +2,63 @@ import Link from "next/link";
 import Image from "next/image";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import SectionHeader from "@/components/SectionHeader";
 
 const LOGO_URL =
   "https://cdn.discordapp.com/attachments/1420855366685692094/1501312679837564999/Captura_de_ecra_2026-05-05_205927-Photoroom.png?ex=69fb9de3&is=69fa4c63&hm=05f58669eb1e429ddf818b12f5c5a2031ede04ea6fa309c4fa441b1036dba29e&";
 
 const servicos = [
   {
+    num: "I",
     nome: "Corte de Cabelo",
     preco: "15€",
     duracao: "30 min",
     descricao: "Corte clássico ou moderno com acabamento perfeito.",
-    icon: "✂️",
   },
   {
+    num: "II",
     nome: "Barba",
     preco: "12€",
     duracao: "25 min",
     descricao: "Aparo e definição com navalha para um look impecável.",
-    icon: "🪒",
   },
   {
+    num: "III",
     nome: "Corte + Barba",
     preco: "22€",
     duracao: "50 min",
     descricao: "O combo completo para o homem que cuida da sua imagem.",
-    icon: "💈",
   },
   {
+    num: "IV",
     nome: "Lavagem + Corte",
     preco: "18€",
     duracao: "45 min",
     descricao: "Lavagem com produtos premium antes do corte.",
-    icon: "🚿",
   },
   {
+    num: "V",
     nome: "Hidratação de Barba",
     preco: "8€",
     duracao: "15 min",
     descricao: "Tratamento nutritivo para barba saudável e macia.",
-    icon: "🧴",
   },
   {
+    num: "VI",
     nome: "Pacote Premium",
     preco: "35€",
     duracao: "75 min",
     descricao: "Lavagem, corte, barba e hidratação — a experiência completa.",
-    icon: "👑",
   },
 ];
 
 const galeria = [
-  { bg: "bg-dark-600", label: "Corte Clássico" },
-  { bg: "bg-dark-700", label: "Barba Perfeita" },
-  { bg: "bg-dark-600", label: "Fade Moderno" },
-  { bg: "bg-dark-700", label: "Acabamento" },
-  { bg: "bg-dark-600", label: "Navalha" },
-  { bg: "bg-dark-700", label: "Estilo Premium" },
+  "Corte Clássico",
+  "Barba Perfeita",
+  "Fade Moderno",
+  "Acabamento",
+  "Navalha",
+  "Estilo Premium",
 ];
 
 export default function Home() {
@@ -66,36 +67,46 @@ export default function Home() {
       <Navbar />
 
       {/* Hero */}
-      <section className="relative min-h-screen flex items-center justify-center bg-dark-900 overflow-hidden">
-        <div className="absolute inset-0 opacity-5">
-          <div className="absolute inset-0 bg-[repeating-linear-gradient(45deg,#f59e0b_0,#f59e0b_1px,transparent_0,transparent_50%)] bg-[size:20px_20px]" />
-        </div>
-        <div className="absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b from-transparent via-gold-500 to-transparent opacity-60" />
-        <div className="absolute right-0 top-0 bottom-0 w-1 bg-gradient-to-b from-transparent via-gold-500 to-transparent opacity-60" />
+      <section className="relative min-h-screen flex items-center justify-center bg-ink overflow-hidden">
+        {/* Fundo geométrico vintage */}
+        <div
+          className="absolute inset-0 opacity-[0.04]"
+          style={{
+            backgroundImage:
+              "repeating-linear-gradient(0deg, #C9961A 0, #C9961A 1px, transparent 0, transparent 60px), repeating-linear-gradient(90deg, #C9961A 0, #C9961A 1px, transparent 0, transparent 60px)",
+          }}
+        />
+        {/* Vinheta nos cantos */}
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_50%,#0D0D0D_100%)]" />
 
-        <div className="relative text-center px-4 max-w-4xl mx-auto">
+        <div className="relative text-center px-4 max-w-3xl mx-auto">
           <Image
             src={LOGO_URL}
             alt="East Coast Barberia"
             width={480}
-            height={240}
-            className="mx-auto mb-8 w-auto h-44 sm:h-56 lg:h-64 object-contain"
+            height={280}
+            className="mx-auto mb-10 w-auto h-48 sm:h-64 lg:h-72 object-contain drop-shadow-[0_0_40px_rgba(201,150,26,0.15)]"
             priority
           />
-          <div className="w-16 h-0.5 bg-gold-500 mx-auto mb-8" />
-          <p className="text-gray-300 text-lg sm:text-xl max-w-xl mx-auto mb-12 leading-relaxed">
+
+          <div className="ornament mb-8 max-w-sm mx-auto">
+            <span className="text-gold-400 text-xs">◆</span>
+          </div>
+
+          <p className="font-sans text-cream-300 text-base sm:text-lg max-w-lg mx-auto mb-12 leading-relaxed">
             Cortes de precisão, barbas impecáveis e a experiência que o homem moderno merece.
           </p>
+
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link
               href="/marcacoes"
-              className="bg-gold-500 hover:bg-gold-400 text-dark-900 font-bold px-8 py-4 tracking-widest uppercase text-sm transition-all duration-200 hover:scale-105"
+              className="bg-gold-400 hover:bg-gold-300 text-ink font-heading font-bold px-10 py-4 tracking-stamp uppercase text-sm transition-all duration-200 hover:scale-105 border-vintage"
             >
               Marcar Agora
             </Link>
             <a
               href="#servicos"
-              className="border border-gold-500 text-gold-400 hover:bg-gold-500/10 font-semibold px-8 py-4 tracking-widest uppercase text-sm transition-all duration-200"
+              className="border border-gold-600 text-gold-400 hover:bg-gold-400/10 font-heading font-medium px-10 py-4 tracking-stamp uppercase text-sm transition-all duration-200"
             >
               Ver Serviços
             </a>
@@ -103,39 +114,41 @@ export default function Home() {
         </div>
 
         <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 animate-bounce">
-          <span className="text-gold-500/50 text-xs tracking-widest uppercase">scroll</span>
-          <div className="w-0.5 h-8 bg-gradient-to-b from-gold-500/50 to-transparent" />
+          <span className="font-heading text-gold-600 text-[10px] tracking-widest uppercase">scroll</span>
+          <div className="w-px h-8 bg-gradient-to-b from-gold-600 to-transparent" />
         </div>
       </section>
 
       {/* Serviços */}
-      <section id="servicos" className="py-24 px-4 bg-dark-800">
+      <section id="servicos" className="py-28 px-4 bg-dark-800">
         <div className="max-w-6xl mx-auto">
-          <div className="text-center mb-16">
-            <p className="text-gold-400 uppercase tracking-[0.3em] text-xs mb-3">O que fazemos</p>
-            <h2 className="text-4xl sm:text-5xl font-bold">Serviços</h2>
-            <div className="w-16 h-0.5 bg-gold-500 mx-auto mt-6" />
-          </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          <SectionHeader label="O que fazemos" title="Serviços" />
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
             {servicos.map((s) => (
               <div
                 key={s.nome}
-                className="bg-dark-700 border border-dark-500 hover:border-gold-500/50 p-6 group transition-all duration-300 hover:-translate-y-1"
+                className="bg-dark-700 border border-dark-500 hover:border-gold-600/60 p-7 group transition-all duration-300 hover:-translate-y-1 border-vintage relative"
               >
-                <div className="text-3xl mb-4">{s.icon}</div>
-                <div className="flex items-start justify-between mb-3">
-                  <h3 className="text-lg font-semibold">{s.nome}</h3>
-                  <span className="text-gold-400 font-bold text-lg">{s.preco}</span>
+                <div className="flex items-start justify-between mb-5">
+                  <span className="font-heading text-gold-400/50 text-3xl font-bold leading-none">
+                    {s.num}
+                  </span>
+                  <span className="font-heading text-gold-400 font-bold text-xl tracking-tight">
+                    {s.preco}
+                  </span>
                 </div>
-                <p className="text-gray-400 text-sm leading-relaxed mb-4">{s.descricao}</p>
-                <p className="text-gray-500 text-xs tracking-wider uppercase">{s.duracao}</p>
+                <h3 className="font-heading text-cream-200 text-xl font-semibold uppercase tracking-wide mb-2">
+                  {s.nome}
+                </h3>
+                <p className="font-sans text-cream-400 text-sm leading-relaxed mb-5">{s.descricao}</p>
+                <p className="font-accent italic text-gold-600 text-xs">{s.duracao}</p>
               </div>
             ))}
           </div>
-          <div className="text-center mt-12">
+          <div className="text-center mt-14">
             <Link
               href="/marcacoes"
-              className="bg-gold-500 hover:bg-gold-400 text-dark-900 font-bold px-8 py-4 tracking-widest uppercase text-sm transition-all duration-200 inline-block"
+              className="bg-gold-400 hover:bg-gold-300 text-ink font-heading font-bold px-10 py-4 tracking-stamp uppercase text-sm transition-all duration-200 inline-block border-vintage"
             >
               Reservar Serviço
             </Link>
@@ -144,13 +157,19 @@ export default function Home() {
       </section>
 
       {/* Sobre */}
-      <section id="sobre" className="py-24 px-4 bg-dark-900">
-        <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+      <section id="sobre" className="py-28 px-4 bg-ink">
+        <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
           <div>
-            <p className="text-gold-400 uppercase tracking-[0.3em] text-xs mb-3">A nossa história</p>
-            <h2 className="text-4xl sm:text-5xl font-bold mb-6">Sobre Nós</h2>
-            <div className="w-16 h-0.5 bg-gold-500 mb-8" />
-            <div className="space-y-4 text-gray-300 leading-relaxed">
+            <p className="font-accent italic text-gold-400 text-sm tracking-widest mb-4">
+              A nossa história
+            </p>
+            <h2 className="font-heading text-5xl sm:text-6xl font-bold uppercase tracking-stamp text-cream-200 mb-4">
+              Sobre Nós
+            </h2>
+            <div className="ornament mb-8 max-w-[12rem]">
+              <span className="text-gold-400 text-xs">◆</span>
+            </div>
+            <div className="space-y-4 font-sans text-cream-300 leading-relaxed text-[15px]">
               <p>
                 A East Coast Barberia nasceu em 2018 em Setúbal com uma visão clara: criar um espaço
                 onde o homem pode relaxar, cuidar da sua imagem e sair a sentir-se o melhor de si mesmo.
@@ -176,10 +195,12 @@ export default function Home() {
             ].map((stat) => (
               <div
                 key={stat.label}
-                className="bg-dark-700 border border-dark-500 p-8 text-center"
+                className="bg-dark-700 border border-dark-500 p-8 text-center border-vintage"
               >
-                <p className="text-4xl font-bold text-gold-400 mb-2">{stat.valor}</p>
-                <p className="text-gray-400 text-sm leading-tight">{stat.label}</p>
+                <p className="font-heading text-5xl font-bold text-gold-400 mb-3">{stat.valor}</p>
+                <p className="font-sans text-cream-400 text-xs uppercase tracking-widest leading-snug">
+                  {stat.label}
+                </p>
               </div>
             ))}
           </div>
@@ -187,26 +208,24 @@ export default function Home() {
       </section>
 
       {/* Galeria */}
-      <section id="galeria" className="py-24 px-4 bg-dark-800">
+      <section id="galeria" className="py-28 px-4 bg-dark-800">
         <div className="max-w-6xl mx-auto">
-          <div className="text-center mb-16">
-            <p className="text-gold-400 uppercase tracking-[0.3em] text-xs mb-3">O nosso trabalho</p>
-            <h2 className="text-4xl sm:text-5xl font-bold">Galeria</h2>
-            <div className="w-16 h-0.5 bg-gold-500 mx-auto mt-6" />
-          </div>
-          <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
-            {galeria.map((item, i) => (
+          <SectionHeader label="O nosso trabalho" title="Galeria" />
+          <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
+            {galeria.map((label, i) => (
               <div
                 key={i}
-                className={`${item.bg} aspect-square flex items-end p-4 border border-dark-500 hover:border-gold-500/40 transition-all duration-300 group relative overflow-hidden`}
+                className="aspect-square bg-dark-600 border border-dark-400 hover:border-gold-600/50 transition-all duration-300 group relative overflow-hidden flex items-end p-5"
               >
-                <div className="absolute inset-0 bg-gradient-to-br from-gold-500/5 to-dark-900/80" />
-                <div className="absolute inset-0 flex items-center justify-center opacity-20 group-hover:opacity-30 transition-opacity">
-                  <span className="text-6xl">💈</span>
+                <div className="absolute inset-0 bg-gradient-to-t from-ink/90 via-ink/20 to-transparent" />
+                <div className="absolute inset-0 flex items-center justify-center">
+                  <span className="font-heading text-gold-400/10 text-8xl font-bold group-hover:text-gold-400/20 transition-all duration-500">
+                    {["I","II","III","IV","V","VI"][i]}
+                  </span>
                 </div>
-                <span className="relative text-gray-300 text-xs tracking-wider uppercase">
-                  {item.label}
-                </span>
+                <div className="relative">
+                  <p className="font-heading text-cream-200 text-sm uppercase tracking-stamp">{label}</p>
+                </div>
               </div>
             ))}
           </div>
@@ -214,17 +233,27 @@ export default function Home() {
       </section>
 
       {/* CTA Marcação */}
-      <section className="py-24 px-4 bg-gold-500">
-        <div className="max-w-3xl mx-auto text-center">
-          <h2 className="text-4xl sm:text-5xl font-bold text-dark-900 mb-6">
+      <section className="py-28 px-4 bg-gold-500 relative overflow-hidden">
+        <div
+          className="absolute inset-0 opacity-[0.06]"
+          style={{
+            backgroundImage:
+              "repeating-linear-gradient(45deg, #0D0D0D 0, #0D0D0D 1px, transparent 0, transparent 30px)",
+          }}
+        />
+        <div className="relative max-w-3xl mx-auto text-center">
+          <p className="font-accent italic text-ink/60 text-sm tracking-widest mb-4">
+            Sem esperas desnecessárias
+          </p>
+          <h2 className="font-heading text-4xl sm:text-6xl font-bold text-ink uppercase tracking-stamp mb-6">
             Pronto para o próximo corte?
           </h2>
-          <p className="text-dark-700 text-lg mb-10">
-            Reserve a sua marcação online em menos de 2 minutos. Sem esperas desnecessárias.
-          </p>
+          <div className="ornament mb-10 max-w-xs mx-auto">
+            <span className="text-ink/40 text-xs">◆</span>
+          </div>
           <Link
             href="/marcacoes"
-            className="bg-dark-900 hover:bg-dark-800 text-white font-bold px-10 py-5 tracking-widest uppercase text-sm transition-all duration-200 inline-block hover:scale-105"
+            className="bg-ink hover:bg-dark-800 text-cream-200 font-heading font-bold px-12 py-5 tracking-stamp uppercase text-sm transition-all duration-200 inline-block hover:scale-105"
           >
             Marcar Agora
           </Link>
@@ -232,38 +261,39 @@ export default function Home() {
       </section>
 
       {/* Contacto */}
-      <section id="contacto" className="py-24 px-4 bg-dark-900">
+      <section id="contacto" className="py-28 px-4 bg-ink">
         <div className="max-w-6xl mx-auto">
-          <div className="text-center mb-16">
-            <p className="text-gold-400 uppercase tracking-[0.3em] text-xs mb-3">Encontra-nos</p>
-            <h2 className="text-4xl sm:text-5xl font-bold">Contacto</h2>
-            <div className="w-16 h-0.5 bg-gold-500 mx-auto mt-6" />
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
+          <SectionHeader label="Encontra-nos" title="Contacto" />
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
             {[
               {
-                icon: "📍",
+                num: "I",
                 titulo: "Morada",
                 linhas: ["R. São Filipe 1B", "2900-457 Setúbal"],
               },
               {
-                icon: "📞",
+                num: "II",
                 titulo: "Telefone",
-                linhas: ["910 163 502", "Chamada para rede móvel nacional"],
+                linhas: ["910 163 502", "Rede móvel nacional"],
               },
               {
-                icon: "🕐",
+                num: "III",
                 titulo: "Horário",
-                linhas: ["Seg – Sáb: 09h–20h", "Domingo: Fechado"],
+                linhas: ["Seg – Sáb: 09h – 20h", "Domingo: Fechado"],
               },
             ].map((card) => (
-              <div key={card.titulo} className="bg-dark-700 border border-dark-500 p-8 text-center">
-                <div className="text-4xl mb-4">{card.icon}</div>
-                <h3 className="text-gold-400 uppercase tracking-widest text-xs font-semibold mb-3">
+              <div
+                key={card.titulo}
+                className="bg-dark-700 border border-dark-500 p-8 text-center border-vintage"
+              >
+                <span className="font-heading text-gold-400/30 text-4xl font-bold block mb-4">
+                  {card.num}
+                </span>
+                <h3 className="font-heading text-gold-400 uppercase tracking-stamp text-xs font-semibold mb-4">
                   {card.titulo}
                 </h3>
                 {card.linhas.map((l) => (
-                  <p key={l} className="text-gray-300 text-sm">
+                  <p key={l} className="font-sans text-cream-300 text-sm leading-relaxed">
                     {l}
                   </p>
                 ))}
@@ -277,7 +307,7 @@ export default function Home() {
               src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3!2d-8.890!3d38.524!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd194f4b7b2b1111%3A0x0!2sR.+S%C3%A3o+Filipe+1B%2C+2900-457+Set%C3%BAbal!5e0!3m2!1spt!2spt!4v1000000000000!5m2!1spt!2spt&q=R.+S%C3%A3o+Filipe+1B,+2900-457+Set%C3%BAbal,+Portugal"
               width="100%"
               height="350"
-              style={{ border: 0, filter: "grayscale(1) invert(0.9) hue-rotate(180deg)" }}
+              style={{ border: 0, filter: "grayscale(1) invert(0.85) hue-rotate(180deg) sepia(0.2)" }}
               allowFullScreen
               loading="lazy"
               referrerPolicy="no-referrer-when-downgrade"

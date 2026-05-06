@@ -52,10 +52,7 @@ export default function AdminPage() {
     setDataError("");
     try {
       const res = await fetch("/api/marcacoes");
-      if (res.status === 401) {
-        setView("login");
-        return;
-      }
+      if (res.status === 401) { setView("login"); return; }
       if (!res.ok) throw new Error("Erro ao carregar marcações.");
       const data = await res.json();
       setMarcacoes(data);
@@ -67,9 +64,7 @@ export default function AdminPage() {
   }, []);
 
   useEffect(() => {
-    if (view === "dashboard") {
-      fetchMarcacoes();
-    }
+    if (view === "dashboard") fetchMarcacoes();
   }, [view, fetchMarcacoes]);
 
   async function handleLogin(e: React.FormEvent) {
@@ -115,18 +110,16 @@ export default function AdminPage() {
     }
   }
 
-  const filtered = filterData
-    ? marcacoes.filter((m) => m.data === filterData)
-    : marcacoes;
-
+  const filtered = filterData ? marcacoes.filter((m) => m.data === filterData) : marcacoes;
   const sorted = [...filtered].sort((a, b) => {
     if (a.data !== b.data) return a.data.localeCompare(b.data);
     return a.hora.localeCompare(b.hora);
   });
 
+  /* ── LOGIN ── */
   if (view === "login") {
     return (
-      <main className="min-h-screen bg-dark-900 flex items-center justify-center px-4">
+      <main className="min-h-screen bg-ink flex items-center justify-center px-4">
         <div className="w-full max-w-sm">
           <div className="text-center mb-10">
             <Image
@@ -137,12 +130,17 @@ export default function AdminPage() {
               className="mx-auto mb-6 h-20 w-auto object-contain"
               priority
             />
-            <h1 className="text-2xl font-bold">Área Administrativa</h1>
+            <p className="font-accent italic text-gold-400 text-xs tracking-widest mb-1">
+              Acesso restrito
+            </p>
+            <h1 className="font-heading text-2xl font-bold uppercase tracking-stamp text-cream-200">
+              Área Administrativa
+            </h1>
           </div>
 
-          <form onSubmit={handleLogin} className="bg-dark-700 border border-dark-500 p-8 space-y-5">
+          <form onSubmit={handleLogin} className="bg-dark-700 border border-dark-500 p-8 space-y-5 border-vintage">
             <div>
-              <label className="block text-xs uppercase tracking-widest text-gray-400 mb-2">
+              <label className="block font-heading text-[10px] uppercase tracking-stamp text-cream-400 mb-2">
                 Palavra-passe
               </label>
               <input
@@ -152,12 +150,12 @@ export default function AdminPage() {
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder="••••••••"
                 autoFocus
-                className="w-full bg-dark-800 border border-dark-500 focus:border-gold-500 text-white px-4 py-3 text-sm outline-none transition-colors"
+                className="w-full bg-dark-800 border border-dark-400 focus:border-gold-400 text-cream-200 px-4 py-3 text-sm outline-none transition-colors font-sans"
               />
             </div>
 
             {loginError && (
-              <div className="bg-red-900/30 border border-red-500/40 text-red-300 px-4 py-3 text-sm">
+              <div className="bg-red-900/20 border border-red-500/30 text-red-300 px-4 py-3 text-sm font-sans">
                 {loginError}
               </div>
             )}
@@ -165,14 +163,14 @@ export default function AdminPage() {
             <button
               type="submit"
               disabled={loginLoading}
-              className="w-full bg-gold-500 hover:bg-gold-400 disabled:opacity-50 text-dark-900 font-bold py-3 tracking-widest uppercase text-sm transition-colors"
+              className="w-full bg-gold-400 hover:bg-gold-300 disabled:opacity-50 text-ink font-heading font-bold py-3 tracking-stamp uppercase text-sm transition-colors"
             >
               {loginLoading ? "A entrar..." : "Entrar"}
             </button>
           </form>
 
-          <p className="text-center mt-6 text-gray-500 text-xs">
-            <a href="/" className="hover:text-gray-300 transition-colors">
+          <p className="text-center mt-6">
+            <a href="/" className="font-sans text-dark-400 hover:text-cream-400 text-xs transition-colors">
               ← Voltar ao site
             </a>
           </p>
@@ -181,23 +179,21 @@ export default function AdminPage() {
     );
   }
 
+  /* ── DASHBOARD ── */
   return (
-    <main className="min-h-screen bg-dark-900">
-      {/* Header */}
-      <header className="bg-dark-800 border-b border-dark-500 px-4 py-4">
+    <main className="min-h-screen bg-ink">
+      <header className="bg-dark-800 border-b border-gold-600/20 px-4 py-3">
         <div className="max-w-6xl mx-auto flex items-center justify-between">
-          <div className="flex items-center">
-            <Image
-              src={LOGO_URL}
-              alt="East Coast Barberia"
-              width={140}
-              height={44}
-              className="h-11 w-auto object-contain"
-            />
-          </div>
+          <Image
+            src={LOGO_URL}
+            alt="East Coast Barberia"
+            width={120}
+            height={40}
+            className="h-10 w-auto object-contain opacity-90"
+          />
           <button
             onClick={handleLogout}
-            className="text-gray-400 hover:text-red-400 text-xs uppercase tracking-widest transition-colors"
+            className="font-heading text-cream-400 hover:text-red-400 text-[10px] tracking-stamp uppercase transition-colors"
           >
             Sair
           </button>
@@ -209,12 +205,7 @@ export default function AdminPage() {
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-8">
           {[
             { label: "Total Marcações", valor: marcacoes.length },
-            {
-              label: "Hoje",
-              valor: marcacoes.filter(
-                (m) => m.data === new Date().toISOString().split("T")[0]
-              ).length,
-            },
+            { label: "Hoje", valor: marcacoes.filter((m) => m.data === new Date().toISOString().split("T")[0]).length },
             {
               label: "Esta Semana",
               valor: marcacoes.filter((m) => {
@@ -232,66 +223,59 @@ export default function AdminPage() {
               label: "Este Mês",
               valor: marcacoes.filter((m) => {
                 const now = new Date();
-                return (
-                  m.data.startsWith(
-                    `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, "0")}`
-                  )
-                );
+                return m.data.startsWith(`${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, "0")}`);
               }).length,
             },
           ].map((s) => (
-            <div key={s.label} className="bg-dark-700 border border-dark-500 p-5 text-center">
-              <p className="text-3xl font-bold text-gold-400">{s.valor}</p>
-              <p className="text-gray-400 text-xs mt-1 uppercase tracking-wider">{s.label}</p>
+            <div key={s.label} className="bg-dark-700 border border-dark-500 p-5 text-center border-vintage">
+              <p className="font-heading text-4xl font-bold text-gold-400">{s.valor}</p>
+              <p className="font-heading text-cream-400 text-[10px] mt-2 uppercase tracking-stamp">{s.label}</p>
             </div>
           ))}
         </div>
 
         {/* Controls */}
         <div className="flex flex-col sm:flex-row gap-4 items-start sm:items-center justify-between mb-6">
-          <h2 className="text-xl font-bold">Marcações</h2>
+          <h2 className="font-heading text-cream-200 text-2xl font-bold uppercase tracking-stamp">
+            Marcações
+          </h2>
           <div className="flex items-center gap-3">
-            <div>
-              <label className="text-xs text-gray-400 uppercase tracking-widest mr-2">
-                Filtrar por data:
-              </label>
-              <input
-                type="date"
-                value={filterData}
-                onChange={(e) => setFilterData(e.target.value)}
-                className="bg-dark-700 border border-dark-500 focus:border-gold-500 text-white px-3 py-2 text-sm outline-none transition-colors"
-              />
-            </div>
+            <label className="font-heading text-[10px] text-cream-400 uppercase tracking-stamp">
+              Filtrar:
+            </label>
+            <input
+              type="date"
+              value={filterData}
+              onChange={(e) => setFilterData(e.target.value)}
+              className="bg-dark-700 border border-dark-400 focus:border-gold-400 text-cream-200 px-3 py-2 text-sm outline-none transition-colors font-sans"
+            />
             {filterData && (
               <button
                 onClick={() => setFilterData("")}
-                className="text-gray-400 hover:text-white text-xs uppercase tracking-wider"
+                className="font-heading text-cream-400 hover:text-cream-200 text-[10px] uppercase tracking-stamp"
               >
                 Limpar
               </button>
             )}
             <button
               onClick={fetchMarcacoes}
-              className="bg-dark-600 hover:bg-dark-500 text-gray-300 px-4 py-2 text-xs uppercase tracking-widest transition-colors border border-dark-500"
+              className="bg-dark-600 hover:bg-dark-500 text-cream-300 px-4 py-2 font-heading text-[10px] uppercase tracking-stamp transition-colors border border-dark-400"
             >
               Atualizar
             </button>
           </div>
         </div>
 
-        {/* Table */}
         {loadingData && (
-          <div className="text-center py-16 text-gray-400">A carregar marcações...</div>
+          <div className="text-center py-16 font-sans text-cream-400">A carregar marcações...</div>
         )}
-
         {dataError && (
-          <div className="bg-red-900/30 border border-red-500/40 text-red-300 px-4 py-3 text-sm mb-4">
+          <div className="bg-red-900/20 border border-red-500/30 text-red-300 px-4 py-3 text-sm font-sans mb-4">
             {dataError}
           </div>
         )}
-
         {!loadingData && !dataError && sorted.length === 0 && (
-          <div className="text-center py-16 text-gray-500">
+          <div className="text-center py-16 font-sans text-cream-400">
             {filterData ? "Nenhuma marcação para esta data." : "Ainda não há marcações."}
           </div>
         )}
@@ -299,37 +283,34 @@ export default function AdminPage() {
         {!loadingData && sorted.length > 0 && (
           <>
             {/* Desktop table */}
-            <div className="hidden md:block overflow-x-auto">
+            <div className="hidden md:block overflow-x-auto border border-dark-500">
               <table className="w-full text-sm">
                 <thead>
-                  <tr className="bg-dark-700 text-gray-400 uppercase text-xs tracking-wider">
-                    <th className="px-4 py-3 text-left">Cliente</th>
-                    <th className="px-4 py-3 text-left">Telefone</th>
-                    <th className="px-4 py-3 text-left">Serviço</th>
-                    <th className="px-4 py-3 text-left">Data</th>
-                    <th className="px-4 py-3 text-left">Hora</th>
-                    <th className="px-4 py-3 text-left">Marcado em</th>
-                    <th className="px-4 py-3 text-left">Obs.</th>
-                    <th className="px-4 py-3 text-right">Ação</th>
+                  <tr className="bg-dark-700 border-b border-dark-500">
+                    {["Cliente", "Telefone", "Serviço", "Data", "Hora", "Marcado em", "Obs.", ""].map((h) => (
+                      <th key={h} className="px-4 py-3 text-left font-heading text-[10px] uppercase tracking-stamp text-cream-400">
+                        {h}
+                      </th>
+                    ))}
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-dark-600">
                   {sorted.map((m) => (
-                    <tr key={m.id} className="hover:bg-dark-700/50 transition-colors">
-                      <td className="px-4 py-3 font-medium">{m.nome}</td>
-                      <td className="px-4 py-3 text-gray-300">{m.telefone}</td>
-                      <td className="px-4 py-3 text-gold-400 text-xs">{m.servico}</td>
-                      <td className="px-4 py-3">{formatDate(m.data)}</td>
-                      <td className="px-4 py-3 font-mono">{m.hora}</td>
-                      <td className="px-4 py-3 text-gray-500 text-xs">{formatDateTime(m.criadoEm)}</td>
-                      <td className="px-4 py-3 text-gray-400 text-xs max-w-[140px] truncate">
+                    <tr key={m.id} className="hover:bg-dark-700/40 transition-colors">
+                      <td className="px-4 py-3 font-heading text-cream-200 font-semibold text-sm tracking-wide">{m.nome}</td>
+                      <td className="px-4 py-3 font-sans text-cream-300 text-sm">{m.telefone}</td>
+                      <td className="px-4 py-3 font-heading text-gold-400 text-xs tracking-wide">{m.servico}</td>
+                      <td className="px-4 py-3 font-sans text-cream-200 text-sm">{formatDate(m.data)}</td>
+                      <td className="px-4 py-3 font-sans text-cream-200 text-sm font-medium">{m.hora}</td>
+                      <td className="px-4 py-3 font-sans text-cream-400 text-xs">{formatDateTime(m.criadoEm)}</td>
+                      <td className="px-4 py-3 font-sans text-cream-400 text-xs max-w-[140px] truncate italic">
                         {m.mensagem || "—"}
                       </td>
                       <td className="px-4 py-3 text-right">
                         <button
                           onClick={() => handleDelete(m.id)}
                           disabled={deletingId === m.id}
-                          className="text-red-400 hover:text-red-300 disabled:opacity-40 text-xs uppercase tracking-wider transition-colors"
+                          className="font-heading text-red-400 hover:text-red-300 disabled:opacity-40 text-[10px] uppercase tracking-stamp transition-colors"
                         >
                           {deletingId === m.id ? "..." : "Eliminar"}
                         </button>
@@ -343,30 +324,28 @@ export default function AdminPage() {
             {/* Mobile cards */}
             <div className="md:hidden space-y-4">
               {sorted.map((m) => (
-                <div key={m.id} className="bg-dark-700 border border-dark-500 p-5 space-y-3">
+                <div key={m.id} className="bg-dark-700 border border-dark-500 p-5 space-y-3 border-vintage">
                   <div className="flex items-start justify-between">
                     <div>
-                      <p className="font-semibold">{m.nome}</p>
-                      <p className="text-gray-400 text-sm">{m.telefone}</p>
+                      <p className="font-heading text-cream-200 font-semibold uppercase tracking-wide">{m.nome}</p>
+                      <p className="font-sans text-cream-400 text-sm">{m.telefone}</p>
                     </div>
                     <button
                       onClick={() => handleDelete(m.id)}
                       disabled={deletingId === m.id}
-                      className="text-red-400 hover:text-red-300 text-xs uppercase tracking-wider"
+                      className="font-heading text-red-400 hover:text-red-300 text-[10px] uppercase tracking-stamp"
                     >
                       {deletingId === m.id ? "..." : "Eliminar"}
                     </button>
                   </div>
-                  <p className="text-gold-400 text-xs">{m.servico}</p>
-                  <div className="flex items-center gap-4 text-sm">
-                    <span className="text-white font-mono">
-                      {formatDate(m.data)} às {m.hora}
-                    </span>
-                  </div>
+                  <p className="font-heading text-gold-400 text-xs tracking-wide">{m.servico}</p>
+                  <p className="font-sans text-cream-200 text-sm">
+                    {formatDate(m.data)} às {m.hora}
+                  </p>
                   {m.mensagem && (
-                    <p className="text-gray-400 text-xs italic">{m.mensagem}</p>
+                    <p className="font-sans text-cream-400 text-xs italic">{m.mensagem}</p>
                   )}
-                  <p className="text-gray-600 text-xs">Marcado em {formatDateTime(m.criadoEm)}</p>
+                  <p className="font-sans text-dark-400 text-xs">Marcado em {formatDateTime(m.criadoEm)}</p>
                 </div>
               ))}
             </div>

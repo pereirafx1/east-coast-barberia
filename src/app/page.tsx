@@ -247,10 +247,10 @@ export default function Home() {
             ))}
           </div>
 
-          {/* Mapa — R. São Filipe 1B, Setúbal | coords: 38.5241,-8.8887 | satélite 45° */}
+          {/* Mapa — pesquisa por morada, satélite, filtro escuro */}
           <div className="border border-dark-500 overflow-hidden">
             <iframe
-              src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d400!2d-8.88874!3d38.52412!2m3!1f45!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e1!3m2!1spt!2spt!4v1746800000000!5m2!1spt!2spt"
+              src="https://maps.google.com/maps?q=R.+S%C3%A3o+Filipe+1B,+2900-457+Set%C3%BAbal,+Portugal&t=k&z=18&output=embed"
               width="100%"
               height="400"
               style={{ border: 0, filter: "grayscale(1) invert(0.9) hue-rotate(180deg)" }}
